@@ -152,7 +152,7 @@ public class GameBoard : MonoBehaviour {
 
 		void VertColMatch(int col){
 		int matches = 1;
-		for(int row = 0; row < 5; row++){
+		for(int row = 0; row <= 5; row++){
 			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
 			Paintdrop next = board[row+matches, col].GetComponent<Paintdrop>();
 
