@@ -70,10 +70,13 @@ public class Paintdrop : MonoBehaviour {
 			if (other.tag == "Drop") {
 				Debug.Log("get other drop");
 				Paintdrop d = other.GetComponent<Paintdrop>();
-				d.AddColor(this);
-				Screen.showCursor = true;
-				board.FillIn(this.Row(), this.Col());
-				this.Delete();
+				if(this.IsAdjacent(d)){
+					d.AddColor(this);
+					Screen.showCursor = true;
+					board.FillIn(this.Row(), this.Col());
+					this.Delete();
+				}
+
 			}
 
 		}
@@ -137,5 +140,12 @@ public class Paintdrop : MonoBehaviour {
 
 	int Col(){
 		return (int)location.x;
+	}
+
+	bool IsAdjacent(Paintdrop d){
+		if(Mathf.Abs(d.Row() - this.Row()) + Mathf.Abs(d.Col() - this.Col()) <= 1){
+			return true;
+		}
+		return false;
 	}
 }
