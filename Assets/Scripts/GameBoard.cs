@@ -45,11 +45,10 @@ public class GameBoard : MonoBehaviour {
 			Debug.Log("instantiate drop");
 			Debug.Log("Row: " + row + " Col: " + col);
 			GameObject newDrop = (GameObject)Instantiate(Resources.Load("Drop"));
-			Debug.Log("set position");
 			newDrop.transform.position = new Vector2(col, row);
 			newDrop.GetComponent<Paintdrop>().SetLocation(row,col);
 			newDrop.GetComponent<Paintdrop>().board = this;
-			Debug.Log("save drop");
+			board[row, col] = null;
 			board[row, col] = newDrop;
 		}else{
 			Debug.Log("Row: " + row + " Col: " + col);
@@ -137,7 +136,6 @@ public class GameBoard : MonoBehaviour {
 					for(int i = 0; i <= 4; i++){
 					board[row,col + i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,col+i);
-
 				}
 				return;
 			}else if(matches >=3){
@@ -153,36 +151,33 @@ public class GameBoard : MonoBehaviour {
 	}
 
 		void VertColMatch(int col){
-		int matches = 0;
+		int matches = 1;
 		for(int row = 0; row < 5; row++){
 			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
 			Paintdrop next = board[row+matches, col].GetComponent<Paintdrop>();
 
-			while(!curr.IsPrimary() && curr.IsSameColor(next) && (row+matches) < rows - 1){
+			while(!curr.IsPrimary() && curr.IsSameColor(next) && (row+matches) < rows){
 				matches++;
 				curr = next;
 				next = board[row+matches, col].GetComponent<Paintdrop>();
 			}
-
 			if(matches >= 5){
-				Debug.Log("match");
-				Debug.Log("cleared");
 				for(int i = 0; i <= 5; i++){
-					board[row + i,col].GetComponent<Paintdrop>().Delete();
-					FillIn(row + i,col);
-
+					board[row,col].GetComponent<Paintdrop>().Delete();
+					FillIn(row,col);
 				}
 				return;
 			}else if(matches >= 4){
 					for(int i = 0; i <= 4; i++){
-					board[row + i,col].GetComponent<Paintdrop>().Delete();
-					FillIn(row + i,col);
+					board[row,col].GetComponent<Paintdrop>().Delete();
+					FillIn(row,col);
 				}
 				return;
 			}else if(matches >=3){
 					for(int i = 0; i <= 3; i++){
-					board[row + i,col].GetComponent<Paintdrop>().Delete();
-					FillIn(row + i,col);
+						Debug.Log("row+i: " + row + i);
+					board[row,col].GetComponent<Paintdrop>().Delete();
+					FillIn(row,col);
 				}
 			return;
 			}
