@@ -13,7 +13,6 @@ public class Paintdrop : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
 			AssignColor();
 
 
@@ -60,6 +59,8 @@ public class Paintdrop : MonoBehaviour {
 		}
 
 	void OnTriggerEnter2D(Collider2D other){
+
+		Debug.Log("trigger" + other.tag);
 			if (other.tag == "Drop") {
 				Debug.Log("drop");
 				Paintdrop d = other.GetComponent<Paintdrop>();
