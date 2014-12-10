@@ -81,6 +81,9 @@ public class Paintdrop : MonoBehaviour {
 
 		}
 
+
+
+
 	public void Delete(){
 		//transform.parent.GetComponent<Renderer>().enabled = false;
 		renderer.enabled = false;
@@ -120,6 +123,14 @@ public class Paintdrop : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public bool IsSameColor(Paintdrop d){
+		return ((this.color.r == d.color.r) && (this.color.g == d.color.g) && (this.color.b == d.color.b));
+	}
+
+	public bool IsPrimary(){
+		return this.IsRed() || this.IsBlue() || this.IsYellow();
 	}
 
 	bool IsRed(){

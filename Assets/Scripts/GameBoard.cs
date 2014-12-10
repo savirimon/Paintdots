@@ -16,7 +16,13 @@ public class GameBoard : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+		for(int i = 0; i < rows; i++){
+			HorRowMatch5(i);
+			HorRowMatch4(i);
+			HorRowMatch3(i);
+		}
+
 	}
 
 	void InitializeBoard(){
@@ -79,12 +85,105 @@ public class GameBoard : MonoBehaviour {
 
 	}
 
+
+
 	void CheckMatches(){
 
 	}
 
 	void CheckHorMatches(){
+		for(int i = 0; i < rows; i++){//row
+			bool match = false;
+			int count = 0;
 
+			//column
+			for(int j = 0; j < 5; j++){
+
+			}
+			/*
+			GameObject curr = (GameObject)board[i,startCol];
+			GameObject next = (GameObject)board[i, startCol + count];
+			Paintdrop currDrop = curr.GetComponent<Paintdrop>();
+			Paintdrop nextDrop = curr.GetComponent<Paintdrop>();
+
+			while(!(currDrop.IsPrimary()) && currDrop.IsSameColor(nextDrop) && count < matches - 1){
+				count++;
+				curr = next;
+				next = (GameObject)board[i, startCol + count];
+			}*/
+		}
+	}
+
+	void HorRowMatch5(int row){
+		int matches = 1;
+
+		for(int col = 0; col < 3; col++){
+			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
+			Paintdrop next = board[row, col+matches].GetComponent<Paintdrop>();
+			while(!curr.IsPrimary() && curr.IsSameColor(next) && matches < 5){
+				matches++;
+				curr = next;
+				next = board[row, col + matches].GetComponent<Paintdrop>();
+			}
+
+			if(matches >= 5){
+				Debug.Log("match");
+				Debug.Log("cleared");
+				for(int i = 0; i <= 5; i++){
+					board[row,i].GetComponent<Paintdrop>().Delete();
+					FillIn(row,i);
+				}
+			}
+			
+		}
+	}
+
+	void HorRowMatch4(int row){
+		int matches = 1;
+
+		for(int col = 0; col < 4; col++){
+			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
+			Paintdrop next = board[row, col+matches].GetComponent<Paintdrop>();
+			while(!curr.IsPrimary() && curr.IsSameColor(next) && matches < 4){
+				matches++;
+				curr = next;
+				next = board[row, col + matches].GetComponent<Paintdrop>();
+			}
+
+			if(matches >= 4){
+				Debug.Log("match");
+				Debug.Log("cleared");
+				for(int i = 0; i <= 4; i++){
+					board[row,i].GetComponent<Paintdrop>().Delete();
+					FillIn(row,i);
+				}
+			}
+			
+		}
+	}
+
+	void HorRowMatch3(int row){
+		int matches = 1;
+
+		for(int col = 0; col < 5; col++){
+			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
+			Paintdrop next = board[row, col+matches].GetComponent<Paintdrop>();
+			while(!curr.IsPrimary() && curr.IsSameColor(next) && matches < 3){
+				matches++;
+				curr = next;
+				next = board[row, col + matches].GetComponent<Paintdrop>();
+			}
+
+			if(matches >= 3){
+				Debug.Log("match");
+				Debug.Log("cleared");
+				for(int i = 0; i <= 3; i++){
+					board[row,i].GetComponent<Paintdrop>().Delete();
+					FillIn(row,i);
+				}
+			}
+			
+		}
 	}
 
 	void CheckVertMatches(){
