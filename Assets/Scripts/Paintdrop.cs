@@ -13,9 +13,8 @@ public class Paintdrop : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if(color == null){
+		
 			AssignColor();
-		}
 
 
 		transform.renderer.material.color = color;
@@ -42,7 +41,7 @@ public class Paintdrop : MonoBehaviour {
 	}
 
 	void AssignColor(){
-		int rand = Random.Range (0, 2);
+		int rand = Random.Range (0, 3);
 			switch(rand){
 			case 0:
 				this.color = red;
