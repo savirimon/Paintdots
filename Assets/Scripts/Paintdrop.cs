@@ -4,6 +4,8 @@ using System.Collections;
 public class Paintdrop : MonoBehaviour {
 
 	public Color color;
+	public GameBoard board;
+	private Vector2 location;
 	private Color red = Color.red;
 	private Color yellow = new Color(1,1,0);
 	private Color blue = Color.blue;
@@ -58,6 +60,10 @@ public class Paintdrop : MonoBehaviour {
 		this.color = c;
 		}
 
+	public void SetLocation(int row, int col){
+		location = new Vector2(col, row);
+	}
+
 	void OnTriggerEnter2D(Collider2D other){
 
 		Debug.Log("trigger" + other.tag);
@@ -65,11 +71,18 @@ public class Paintdrop : MonoBehaviour {
 				Debug.Log("drop");
 				Paintdrop d = other.GetComponent<Paintdrop>();
 				d.AddColor(this);
-				GameObject.Destroy(this.gameObject);
 				Screen.showCursor = true;
+				board.FillIn(this.Row(), this.Col());
+				this.Delete();
 			}
 
 		}
+
+	public void Delete(){
+		//transform.parent.GetComponent<Renderer>().enabled = false;
+		renderer.enabled = false;
+		GameObject.Destroy(this.gameObject);
+	}
 
 	void AddColor(Paintdrop drop){
 		//primary combinations
@@ -118,4 +131,11 @@ public class Paintdrop : MonoBehaviour {
 		return (this.color.r == yellow.r && this.color.g == yellow.g && this.color.b == yellow.b);
 	}
 
+	int Row(){
+		return (int)location.y;
+	}
+
+	int Col(){
+		return (int)location.x;
+	}
 }

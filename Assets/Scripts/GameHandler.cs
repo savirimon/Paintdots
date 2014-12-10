@@ -3,7 +3,8 @@ using System.Collections;
 
 public class GameHandler : MonoBehaviour {
 
-	private Paintdrop[,] grid = new Paintdrop[8,8]; //8 rows and 8 columns
+	public GameBoard board;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -11,10 +12,25 @@ public class GameHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//reset
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			Reset();
+		}
 	}
 
 	void Reset(){
+		Application.LoadLevel(Application.loadedLevel);	
+	}
+
+	void CheckMatches(){
+
+	}
+
+	void CheckHorMatches(){
+
+	}
+
+	void CheckVertMatches(){
 		
 	}
 

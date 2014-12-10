@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Temp\ParsedCombinations-Illumin-Diffuse.shader">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameBoard.cs">
     <Files>
-      <File FileName="Temp\ParsedCombinations-Illumin-Diffuse.shader" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameBoard.cs" Line="75" Column="1" />
+      <File FileName="Assets\Scripts\Paintdrop.cs" Line="74" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
