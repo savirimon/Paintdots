@@ -62,42 +62,39 @@ public class Paintdrop : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 			if (other.tag == "Drop") {
-				Paintdrop d = other.gameObject.GetComponent<Paintdrop>();
 				Debug.Log("drop");
-				d.SetColor(purple);
-				SetColor(green);
+				Paintdrop d = other.GetComponent<Paintdrop>();
+				d.AddColor(this);
 				GameObject.Destroy(this.gameObject);
 			}
 
 		}
 
-	void AddColor(Color c){
+	void AddColor(Paintdrop drop){
 		//primary combinations
 
-		//red
-		if (this.color == red) {
-				if(c == blue){
-					SetColor (purple);
-				}else if(c == yellow){
-					SetColor (orange);
-				}
-		}
+		if(this.IsBlue()){
+			if(drop.IsRed()){
+				SetColor(purple);
+			}
 
-		//yellow
-		if (this.color == yellow) {
-			if (c == yellow) {
-				if(color == blue){
-					SetColor (green);
-				}else if(color == red){
-					SetColor (orange);
-				}
-			} else if (c == blue) {
-				
+			if(drop.isYellow()){
+				SetColor(green);
 			}
 		}
-		//blue + red
 
+	}
 
-		}
+	bool IsRed(){
+		return (this.color.r == red.r && this.color.g == red.g && this.color.b == red.b);
+	}
+
+	bool IsBlue(){
+		return (this.color.r == blue.r && this.color.g == blue.g && this.color.b == blue.b);
+	}
+
+	bool isYellow(){
+		return (this.color.r == yellow.r && this.color.g == yellow.g && this.color.b == yellow.b);
+	}
 
 }

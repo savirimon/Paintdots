@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Draggable : MonoBehaviour {
@@ -9,7 +9,6 @@ public class Draggable : MonoBehaviour {
 		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		pos.z = gameObject.transform.position.z;
 		gameObject.transform.position = pos;
-
 	}
 
 	void OnMouseUp(){
