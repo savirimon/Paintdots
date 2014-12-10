@@ -7,7 +7,7 @@ public class Paintdrop : MonoBehaviour {
 	private Color red = Color.red;
 	private Color yellow = new Color(1,1,0);
 	private Color blue = Color.blue;
-	private Color orange = new Color(1, (float)165/(float)255, 0);
+	private Color orange = new Color(1, 0.57f, 0);
 	private Color green = Color.green;
 	private Color purple = new Color((float)160/(float)255, (float)32/(float)255, (float)240/(float)255);
 
@@ -17,11 +17,11 @@ public class Paintdrop : MonoBehaviour {
 			AssignColor();
 		}
 
-		if (color != renderer.material.color) {
-			renderer.material.SetColor ("_Color", color);
-		}
+
+		transform.renderer.material.color = color;
+		
 		Color col = color;
-		col.a = 0.5f;
+		col.a = 1f;
 		color = col;
 		renderer.material.color = col;
 
@@ -31,7 +31,7 @@ public class Paintdrop : MonoBehaviour {
 	void Update () {
 		//update color, if necessary
 		//if (color != renderer.material.color) {
-			renderer.material.SetColor ("_Color", color);
+			renderer.material.color = color;
 		//}
 
 
@@ -66,20 +66,41 @@ public class Paintdrop : MonoBehaviour {
 				Paintdrop d = other.GetComponent<Paintdrop>();
 				d.AddColor(this);
 				GameObject.Destroy(this.gameObject);
+				Screen.showCursor = true;
 			}
 
 		}
 
 	void AddColor(Paintdrop drop){
 		//primary combinations
-
+		//blue
 		if(this.IsBlue()){
 			if(drop.IsRed()){
 				SetColor(purple);
 			}
 
-			if(drop.isYellow()){
+			if(drop.IsYellow()){
 				SetColor(green);
+			}
+		}
+
+		if(this.IsRed()){
+			if(drop.IsBlue()){
+				SetColor(purple);
+			}
+
+			if(drop.IsYellow()){
+				SetColor(orange);
+			}
+		}
+
+		if(this.IsYellow()){
+			if(drop.IsBlue()){
+				SetColor(green);
+			}
+
+			if(drop.IsRed()){
+				SetColor(orange);
 			}
 		}
 
@@ -93,7 +114,7 @@ public class Paintdrop : MonoBehaviour {
 		return (this.color.r == blue.r && this.color.g == blue.g && this.color.b == blue.b);
 	}
 
-	bool isYellow(){
+	bool IsYellow(){
 		return (this.color.r == yellow.r && this.color.g == yellow.g && this.color.b == yellow.b);
 	}
 
