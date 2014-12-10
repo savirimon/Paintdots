@@ -42,6 +42,8 @@ public class GameBoard : MonoBehaviour {
 			GameObject newDrop = (GameObject)Instantiate(Resources.Load("Drop"));
 			Debug.Log("set position");
 			newDrop.transform.position = new Vector2(col, row);
+			newDrop.GetComponent<Paintdrop>().SetLocation(row,col);
+			newDrop.GetComponent<Paintdrop>().board = this;
 			Debug.Log("save drop");
 			board[row, col] = newDrop;
 		}else{

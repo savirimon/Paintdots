@@ -68,7 +68,7 @@ public class Paintdrop : MonoBehaviour {
 
 		Debug.Log("trigger" + other.tag);
 			if (other.tag == "Drop") {
-				Debug.Log("drop");
+				Debug.Log("get other drop");
 				Paintdrop d = other.GetComponent<Paintdrop>();
 				d.AddColor(this);
 				Screen.showCursor = true;
