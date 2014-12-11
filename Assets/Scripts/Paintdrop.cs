@@ -5,6 +5,7 @@ public class Paintdrop : MonoBehaviour {
 
 	public Color color;
 	public GameBoard board;
+	public bool matchingGame;
 	private Vector2 location;
 	private Color red = Color.red;
 	private Color yellow = new Color(1,1,0);
@@ -12,10 +13,12 @@ public class Paintdrop : MonoBehaviour {
 	private Color orange = new Color(1, 0.57f, 0);
 	private Color green = Color.green;
 	private Color purple = new Color((float)160/(float)255, (float)32/(float)255, (float)240/(float)255);
+	private Color poop = new Color((float)42/(float)255, (float)42/(float)255, (float)42/(float)255);
 
 	// Use this for initialization
 	void Start () {
 			AssignColor();
+
 
 
 		transform.renderer.material.color = color;
@@ -73,16 +76,16 @@ public class Paintdrop : MonoBehaviour {
 				if(this.IsAdjacent(d)){
 					d.AddColor(this);
 					Screen.showCursor = true;
-					board.FillIn(this.Row(), this.Col());
+					//if(matchingGame){
+						board.FillIn(this.Row(), this.Col());
+					//}
+
 					this.Delete();
 				}
 
 			}
 
 		}
-
-
-
 
 	public void Delete(){
 		//transform.parent.GetComponent<Renderer>().enabled = false;
@@ -91,8 +94,13 @@ public class Paintdrop : MonoBehaviour {
 	}
 
 	void AddColor(Paintdrop drop){
+
 		//primary combinations
-		//blue
+
+		if(!this.IsPrimary()){
+			SetColor(poop);
+		}
+		
 		if(this.IsBlue()){
 			if(drop.IsRed()){
 				SetColor(purple);
@@ -100,6 +108,10 @@ public class Paintdrop : MonoBehaviour {
 
 			if(drop.IsYellow()){
 				SetColor(green);
+			}
+
+			if(!drop.IsPrimary()){
+			SetColor(poop);
 			}
 		}
 
@@ -111,6 +123,10 @@ public class Paintdrop : MonoBehaviour {
 			if(drop.IsYellow()){
 				SetColor(orange);
 			}
+
+			if(!drop.IsPrimary()){
+			SetColor(poop);
+			}
 		}
 
 		if(this.IsYellow()){
@@ -120,6 +136,10 @@ public class Paintdrop : MonoBehaviour {
 
 			if(drop.IsRed()){
 				SetColor(orange);
+			}
+
+			if(!drop.IsPrimary()){
+				SetColor(poop);
 			}
 		}
 
