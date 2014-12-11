@@ -5,6 +5,7 @@ public class GameBoard : MonoBehaviour {
 
 	public int rows;
 	public int cols;
+	public GUIText t;
 	GameObject[,] board;
 	
 	// Use this for initialization
@@ -41,7 +42,6 @@ public class GameBoard : MonoBehaviour {
 
 	//pass in the location of missing drop
 	public void FillIn(int row, int col){
-
 		if(row == 7){
 			Debug.Log("row is highest");
 			Debug.Log("instantiate drop");
@@ -208,26 +208,27 @@ public class GameBoard : MonoBehaviour {
 			if(matches >= 5){
 				Debug.Log("match");
 				Debug.Log("cleared");
+
 				for(int i = 0; i < 5; i++){
 					board[row,col + i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,col + i);
-
+											t.GetComponent<DisplayScore>().score++;
 				}
-				return;
+				//return;
 			}else if(matches >= 4){
 					for(int i = 0; i < 4; i++){
 					board[row,col + i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,col+i);
-
+						t.GetComponent<DisplayScore>().score++;
 				}
-				return;
+				//return;
 			}else if(matches >=3){
 					for(int i = 0; i < 3; i++){
 					board[row,col+i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,col+i);
-
+						t.GetComponent<DisplayScore>().score++;
 				}
-			return;
+			//return;
 			}
 			matches = 0;
 		}
@@ -252,21 +253,23 @@ public class GameBoard : MonoBehaviour {
 				for(int i = 0; i <= 5; i++){
 					board[row + i,col].GetComponent<Paintdrop>().Delete();
 					FillIn(row + i,col);
-
+						t.GetComponent<DisplayScore>().score++;
 				}
-				return;
+				//return;
 			}else if(matches > 4){
 					for(int i = 0; i <= 4; i++){
 					board[row + i,col].GetComponent<Paintdrop>().Delete();
 					FillIn(row + i,col);
+											t.GetComponent<DisplayScore>().score++;
 				}
-				return;
+				//return;
 			}else if(matches > 3){
 					for(int i = 3; i >= 0; i--){
 					board[row + i,col].GetComponent<Paintdrop>().Delete();
 					FillIn(row + i,col);
+											t.GetComponent<DisplayScore>().score++;
 				}
-			return;
+			//return;
 			}
 			matches = 0;
 		}

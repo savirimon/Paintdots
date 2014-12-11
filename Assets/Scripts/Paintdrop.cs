@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//ugly code is ugly
 public class Paintdrop : MonoBehaviour {
 
 	public Color color;
@@ -74,6 +75,7 @@ public class Paintdrop : MonoBehaviour {
 				Debug.Log("get other drop");
 				Paintdrop d = other.GetComponent<Paintdrop>();
 				if(this.IsAdjacent(d)){
+					board.t.GetComponent<DisplayScore>().numMoves++;
 					d.AddColor(this);
 					Screen.showCursor = true;
 					//if(matchingGame){
@@ -99,6 +101,7 @@ public class Paintdrop : MonoBehaviour {
 
 		if(!this.IsPrimary()){
 			SetColor(poop);
+						board.t.GetComponent<DisplayScore>().score-= 5;
 		}
 		
 		if(this.IsBlue()){
@@ -112,6 +115,7 @@ public class Paintdrop : MonoBehaviour {
 
 			if(!drop.IsPrimary()){
 			SetColor(poop);
+			board.t.GetComponent<DisplayScore>().score-=5;
 			}
 		}
 
@@ -126,6 +130,7 @@ public class Paintdrop : MonoBehaviour {
 
 			if(!drop.IsPrimary()){
 			SetColor(poop);
+			board.t.GetComponent<DisplayScore>().score -=5;
 			}
 		}
 
@@ -140,6 +145,7 @@ public class Paintdrop : MonoBehaviour {
 
 			if(!drop.IsPrimary()){
 				SetColor(poop);
+				board.t.GetComponent<DisplayScore>().score--;
 			}
 		}
 
