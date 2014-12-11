@@ -14,5 +14,9 @@ public class DisplayScore : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		moves.text = "Moves Achieved: " + numMoves + "      Score: " + score;
+
+		if(score < 0){
+			moves.text = "Please try again ):";
+		}
 	}
 }

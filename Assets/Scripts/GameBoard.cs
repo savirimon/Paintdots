@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
+//ugly code is ugly
 public class GameBoard : MonoBehaviour {
 
 	public int rows;
 	public int cols;
 	public GUIText t;
+	public AudioClip beep;
+	public AudioClip eep;
 	GameObject[,] board;
 	
 	// Use this for initialization
@@ -51,6 +54,11 @@ public class GameBoard : MonoBehaviour {
 			newDrop.transform.position = new Vector2(col, row);
 			newDrop.GetComponent<Paintdrop>().SetLocation(row,col);
 			newDrop.GetComponent<Paintdrop>().board = this;
+			int rand = Random.Range(0,3);
+			if(rand > 0 ){
+				newDrop.GetComponent<Paintdrop>().SetColor(Color.white);
+			}
+
 			Debug.Log("save drop");
 			board[row, col] = newDrop;
 		}else{

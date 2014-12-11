@@ -8,6 +8,7 @@ public class Draggable : MonoBehaviour {
 	private Vector3 curr;
 
 	void OnMouseDrag(){
+		prev = gameObject.transform.position;
 		curr = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		curr.z = gameObject.transform.position.z;
 		collider2D.isTrigger = false;
@@ -30,6 +31,7 @@ public class Draggable : MonoBehaviour {
 	}
 
 	void OnMouseUp(){
+		gameObject.transform.position = new Vector2((float)gameObject.GetComponent<Paintdrop>().Col(), (float)gameObject.GetComponent<Paintdrop>().Row());
 		Screen.showCursor = true;
 		collider2D.isTrigger = true;
 		collider2D.tag = "Drop";
