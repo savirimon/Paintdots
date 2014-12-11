@@ -23,9 +23,7 @@ public class GameBoard : MonoBehaviour {
 
 		for(int i = 0; i < rows; i++){
 			HorRowMatch(i);
-			ReverseHorRowMatch(i);
 			VertColMatch(i);
-			ReverseVertColMatch(i);
 		}
 
 	}
@@ -56,6 +54,7 @@ public class GameBoard : MonoBehaviour {
 			newDrop.GetComponent<Paintdrop>().board = this;
 			int rand = Random.Range(0,3);
 			if(rand > 0 ){
+				Debug.Log("white drop");
 				newDrop.GetComponent<Paintdrop>().SetColor(Color.white);
 			}
 
@@ -93,12 +92,6 @@ public class GameBoard : MonoBehaviour {
 
 	}
 
-
-
-	void CheckMatches(){
-
-	}
-
 	void CheckHorMatches(){
 		for(int i = 0; i < rows; i++){//row
 			bool match = false;
@@ -122,92 +115,13 @@ public class GameBoard : MonoBehaviour {
 		}
 	}
 
-	void ReverseHorRowMatch(int row){
-		int matches = 0;
-		for(int col = 7; col >= 5; col--){
-			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
-			Paintdrop next = board[row, col-matches].GetComponent<Paintdrop>();
-
-			while(!curr.IsPrimary() && curr.IsSameColor(next) && (col - matches) < cols){
-				matches++;
-				curr = next;
-				next = board[row, col - matches].GetComponent<Paintdrop>();
-			}
-
-			if(matches >= 5){
-				Debug.Log("match");
-				Debug.Log("cleared");
-				for(int i = 0; i < 5; i++){
-					board[row,col - i].GetComponent<Paintdrop>().Delete();
-					FillIn(row,col - i);
-
-				}
-				return;
-			}else if(matches >= 4){
-					for(int i = 0; i < 4; i++){
-					board[row,col - i].GetComponent<Paintdrop>().Delete();
-					FillIn(row,col-i);
-
-				}
-				return;
-			}else if(matches >=3){
-					for(int i = 0; i < 3; i++){
-					board[row,col-i].GetComponent<Paintdrop>().Delete();
-					FillIn(row,col-i);
-
-				}
-			return;
-			}
-			matches = 0;
-		}
-	}
-
-	void ReverseVertColMatch(int row){
-		int matches = 0;
-		for(int col = 7; col >= 5; col--){
-			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
-			Paintdrop next = board[row, col-matches].GetComponent<Paintdrop>();
-
-			while(!curr.IsPrimary() && curr.IsSameColor(next) && (row - matches) > 0){
-				matches++;
-				curr = next;
-				next = board[row - matches, col].GetComponent<Paintdrop>();
-			}
-
-			if(matches > 5){
-				Debug.Log("match");
-				Debug.Log("cleared");
-				for(int i = 0; i <= 5; i++){
-					board[row-i,col].GetComponent<Paintdrop>().Delete();
-					FillIn(row-i,col);
-
-				}
-				return;
-			}else if(matches > 4){
-					for(int i = 0; i <= 4; i++){
-					board[row-i,col].GetComponent<Paintdrop>().Delete();
-					FillIn(row-i,col);
-
-				}
-				return;
-			}else if(matches > 3){
-					for(int i = 0; i <= 3; i++){
-					board[row-i,col].GetComponent<Paintdrop>().Delete();
-					FillIn(row-i,col);
-
-				}
-			return;
-			}
-			matches = 0;
-		}
-	}
 	void HorRowMatch(int row){
 		int matches = 0;
 		for(int col = 0; col <= 5; col++){
 			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
 			Paintdrop next = board[row, col+matches].GetComponent<Paintdrop>();
 
-			while(!curr.IsPrimary() && curr.IsSameColor(next) && (col + matches) < cols){
+			while(!curr.IsPrimary() && curr.IsSameColor(next) && (col + matches) < cols - 1){
 				matches++;
 				curr = next;
 				next = board[row, col + matches].GetComponent<Paintdrop>();
@@ -220,23 +134,23 @@ public class GameBoard : MonoBehaviour {
 				for(int i = 0; i < 5; i++){
 					board[row,col + i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,col + i);
-											t.GetComponent<DisplayScore>().score++;
+					t.GetComponent<DisplayScore>().score++;
 				}
-				//return;
+
 			}else if(matches >= 4){
 					for(int i = 0; i < 4; i++){
 					board[row,col + i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,col+i);
 						t.GetComponent<DisplayScore>().score++;
 				}
-				//return;
+
 			}else if(matches >=3){
 					for(int i = 0; i < 3; i++){
 					board[row,col+i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,col+i);
 						t.GetComponent<DisplayScore>().score++;
 				}
-			//return;
+
 			}
 			matches = 0;
 		}
@@ -252,7 +166,7 @@ public class GameBoard : MonoBehaviour {
 
 				curr = next;
 				next = board[row+matches, col].GetComponent<Paintdrop>();
-								matches++;
+				matches++;
 			}
 
 			if(matches > 5){
@@ -261,23 +175,23 @@ public class GameBoard : MonoBehaviour {
 				for(int i = 0; i <= 5; i++){
 					board[row + i,col].GetComponent<Paintdrop>().Delete();
 					FillIn(row + i,col);
-						t.GetComponent<DisplayScore>().score++;
+					t.GetComponent<DisplayScore>().score++;
 				}
-				//return;
+
 			}else if(matches > 4){
 					for(int i = 0; i <= 4; i++){
 					board[row + i,col].GetComponent<Paintdrop>().Delete();
 					FillIn(row + i,col);
-											t.GetComponent<DisplayScore>().score++;
+					t.GetComponent<DisplayScore>().score++;
 				}
-				//return;
+
 			}else if(matches > 3){
 					for(int i = 3; i >= 0; i--){
 					board[row + i,col].GetComponent<Paintdrop>().Delete();
 					FillIn(row + i,col);
-											t.GetComponent<DisplayScore>().score++;
+					t.GetComponent<DisplayScore>().score++;
 				}
-			//return;
+
 			}
 			matches = 0;
 		}
@@ -285,7 +199,6 @@ public class GameBoard : MonoBehaviour {
 
 	void HorRowMatch5(int row){
 		int matches = 1;
-		Debug.Log("check matches");
 		for(int col = 0; col < 3; col++){
 			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
 			Paintdrop next = board[row, col+matches].GetComponent<Paintdrop>();
@@ -296,8 +209,7 @@ public class GameBoard : MonoBehaviour {
 			}
 
 			if(matches >= 5){
-				Debug.Log("match");
-				Debug.Log("cleared");
+				//Debug.Log("match");
 				for(int i = 0; i <= 5; i++){
 					board[row,i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,i);
@@ -318,6 +230,7 @@ public class GameBoard : MonoBehaviour {
 		for(int col = 0; col < 4; col++){
 			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
 			Paintdrop next = board[row, col+matches].GetComponent<Paintdrop>();
+
 			while(!curr.IsPrimary() && curr.IsSameColor(next) && matches < 4){
 				matches++;
 				curr = next;
@@ -326,7 +239,6 @@ public class GameBoard : MonoBehaviour {
 
 			if(matches >= 4){
 				Debug.Log("match");
-				Debug.Log("cleared");
 				for(int i = 0; i <= 4; i++){
 					board[row,i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,i);
@@ -342,6 +254,7 @@ public class GameBoard : MonoBehaviour {
 		for(int col = 0; col < 5; col++){
 			Paintdrop curr = board[row,col].GetComponent<Paintdrop>();
 			Paintdrop next = board[row, col+matches].GetComponent<Paintdrop>();
+
 			while(!curr.IsPrimary() && curr.IsSameColor(next) && matches < 3){
 				matches++;
 				curr = next;
@@ -350,17 +263,12 @@ public class GameBoard : MonoBehaviour {
 
 			if(matches >= 3){
 				Debug.Log("match");
-				Debug.Log("cleared");
 				for(int i = 0; i <= 3; i++){
 					board[row,i].GetComponent<Paintdrop>().Delete();
 					FillIn(row,i);
 				}
 			}
 		}
-	}
-
-	void CheckVertMatches(){
-		
 	}
 
 

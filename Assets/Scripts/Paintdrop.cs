@@ -19,6 +19,7 @@ public class Paintdrop : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//if(!this.IsWhite())
 			AssignColor();
 
 
@@ -46,7 +47,7 @@ public class Paintdrop : MonoBehaviour {
 	}
 
 	public void AssignColor(){
-		int rand = Random.Range (0, 3);
+		int rand = Random.Range (0, 4);
 			switch(rand){
 			case 0:
 				this.color = red;
@@ -56,6 +57,9 @@ public class Paintdrop : MonoBehaviour {
 				break;
 			case 2:
 				this.color = blue;
+				break;
+			case 3:
+				this.color = white;
 				break;
 			}
 		}
@@ -99,8 +103,11 @@ public class Paintdrop : MonoBehaviour {
 	void AddColor(Paintdrop drop){
 
 		//primary combinations
-		if(this.IsWhite() || drop.IsWhite()){
-			int rand = Random.Range(0,2);
+		if(this.IsWhite() && drop.IsWhite()){
+			drop.AssignColor();
+			this.AssignColor();
+		}else if(this.IsWhite() || drop.IsWhite()){
+			int rand = Random.Range(0,5);
 			switch(rand){
 				case 0:
 					drop.SetColor(poop);
@@ -110,13 +117,21 @@ public class Paintdrop : MonoBehaviour {
 					drop.AssignColor();
 					this.AssignColor();
 					break;
+				case 3:
+					drop.AssignColor();
+					this.AssignColor();
+					break;
+				case 4:
+					drop.AssignColor();
+					this.AssignColor();
+					break;
 			}
 
 		}
 
 		if(!this.IsPrimary()){
 			SetColor(poop);
-						board.t.GetComponent<DisplayScore>().score-= 5;AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
+			board.t.GetComponent<DisplayScore>().score-= 5;AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
 		}
 		
 		if(this.IsBlue()){
@@ -129,8 +144,8 @@ public class Paintdrop : MonoBehaviour {
 			}
 
 			if(!drop.IsPrimary()){
-			SetColor(poop);
-			board.t.GetComponent<DisplayScore>().score-=5;AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
+				SetColor(poop);
+				board.t.GetComponent<DisplayScore>().score-=5;AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
 			}
 		}
 
@@ -144,8 +159,8 @@ public class Paintdrop : MonoBehaviour {
 			}
 
 			if(!drop.IsPrimary()){
-			SetColor(poop);
-			board.t.GetComponent<DisplayScore>().score -=5;AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
+				SetColor(poop);
+				board.t.GetComponent<DisplayScore>().score -=5;AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
 			}
 		}
 
@@ -161,7 +176,7 @@ public class Paintdrop : MonoBehaviour {
 			if(!drop.IsPrimary()){
 				SetColor(poop);
 				board.t.GetComponent<DisplayScore>().score-=5;
-									AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
+				AudioSource.PlayClipAtPoint(board.eep, new Vector3(0,0,0));
 			}
 		}
 

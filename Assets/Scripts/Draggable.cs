@@ -14,18 +14,6 @@ public class Draggable : MonoBehaviour {
 		collider2D.isTrigger = false;
 		collider2D.tag = "Moving";
 		Screen.showCursor = false;
-		/*
-		if(prev != null){
-			if(Mathf.Abs(curr.x - prev.x) > Mathf.Abs(curr.y - prev.y)){
-				count += Mathf.Abs(curr.x - prev.x);
-				gameObject.transform.position = new Vector2(curr.x, Mathf.Round(prev.y));
-			}else{
-				gameObject.transform.position = new Vector2(Mathf.Round(prev.x), curr.y);
-			}
-
-				prev = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				prev.z = gameObject.transform.position.z;
-			}*/
 
 		gameObject.transform.position = curr;
 	}
